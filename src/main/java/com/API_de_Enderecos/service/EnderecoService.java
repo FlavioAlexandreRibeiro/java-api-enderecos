@@ -4,6 +4,8 @@ import com.API_de_Enderecos.dto.EnderecoRequestDTO;
 import com.API_de_Enderecos.dto.EnderecoResponseDTO;
 import com.API_de_Enderecos.entity.Cliente;
 import com.API_de_Enderecos.entity.Endereco;
+import com.API_de_Enderecos.exception.ClienteNaoEncontradoException;
+import com.API_de_Enderecos.exception.EnderecoNaoEncontradoException;
 import com.API_de_Enderecos.repository.ClienteRepository;
 import com.API_de_Enderecos.repository.EnderecoRepository;
 import com.API_de_Enderecos.specification.EnderecoSpecification;
@@ -26,7 +28,7 @@ public class EnderecoService {
     public EnderecoResponseDTO cadastrar(EnderecoRequestDTO enderecoDTO) {
 
         Cliente cliente = clienteRepository.findById(enderecoDTO.getClienteId())
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new ClienteNaoEncontradoException(
                         "Cliente não encontrado com o ID: " + enderecoDTO.getClienteId()));
 
         Endereco endereco = new Endereco();
@@ -101,7 +103,7 @@ public class EnderecoService {
 
     public EnderecoResponseDTO buscarPorId(Long id) {
         Endereco endereco = enderecoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Endereço não encontrado com o ID: " + id));
+                .orElseThrow(() -> new EnderecoNaoEncontradoException("Endereço não encontrado com o ID: " + id));
 
         return EnderecoResponseDTO.fromEntity(endereco);
     }
@@ -110,10 +112,10 @@ public class EnderecoService {
     public EnderecoResponseDTO atualizar(Long id, EnderecoRequestDTO enderecoDTO) {
 
         Endereco endereco = enderecoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Endereço não encontrado com o ID: " + id));
+                .orElseThrow(() -> new EnderecoNaoEncontradoException("Endereço não encontrado com o ID: " + id));
 
         Cliente cliente = clienteRepository.findById(enderecoDTO.getClienteId())
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new ClienteNaoEncontradoException(
                         "Cliente não encontrado com o ID: " + enderecoDTO.getClienteId()));
 
         endereco.setRua(enderecoDTO.getRua());
@@ -134,7 +136,7 @@ public class EnderecoService {
     public void deletar(Long id) {
 
         if (!enderecoRepository.existsById(id)) {
-            throw new IllegalArgumentException("Endereço não encontrado com o ID: " + id);
+            throw new EnderecoNaoEncontradoException("Endereço não encontrado com o ID: " + id);
         }
 
         enderecoRepository.deleteById(id);
