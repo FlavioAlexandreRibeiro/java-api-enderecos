@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "api-enderecos-collection",
+		"name": "API de Endereços",
+		"description": "Collection para API de Endereços e Clientes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Criar Cliente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"João Silva\",\n    \"email\": \"joao.silva@email.com\",\n    \"telefone\": \"11999999999\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/clientes",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["clientes"]
+						},
+						"description": "Cria um novo cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos os Clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/clientes",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["clientes"]
+						},
+						"description": "Retorna todos os clientes cadastrados"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Cliente por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/clientes/:id",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["clientes", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID do cliente"
+								}
+							]
+						},
+						"description": "Busca um cliente específico pelo ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Cliente",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"João Silva Atualizado\",\n    \"email\": \"joao.atualizado@email.com\",\n    \"telefone\": \"11988888888\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/clientes/:id",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["clientes", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID do cliente"
+								}
+							]
+						},
+						"description": "Atualiza os dados de um cliente existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/clientes/:id",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["clientes", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID do cliente"
+								}
+							]
+						},
+						"description": "Remove um cliente pelo ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Endereços",
+			"item": [
+				{
+					"name": "Criar Endereço",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rua\": \"Rua das Flores\",\n    \"numero\": 123,\n    \"complemento\": \"Apto 101\",\n    \"bairro\": \"Centro\",\n    \"cidade\": \"São Paulo\",\n    \"estado\": \"SP\",\n    \"cep\": \"01234-567\",\n    \"clienteId\": 1\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/enderecos",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["enderecos"]
+						},
+						"description": "Cria um novo endereço"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Endereços (com filtros)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/enderecos?rua=&numero=&complemento=&bairro=&cidade=&estado=&cep=&clienteId=",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["enderecos"],
+							"query": [
+								{
+									"key": "rua",
+									"value": "",
+									"description": "Filtrar por rua"
+								},
+								{
+									"key": "numero",
+									"value": "",
+									"description": "Filtrar por número"
+								},
+								{
+									"key": "complemento",
+									"value": "",
+									"description": "Filtrar por complemento"
+								},
+								{
+									"key": "bairro",
+									"value": "",
+									"description": "Filtrar por bairro"
+								},
+								{
+									"key": "cidade",
+									"value": "",
+									"description": "Filtrar por cidade"
+								},
+								{
+									"key": "estado",
+									"value": "",
+									"description": "Filtrar por estado"
+								},
+								{
+									"key": "cep",
+									"value": "",
+									"description": "Filtrar por CEP"
+								},
+								{
+									"key": "clienteId",
+									"value": "",
+									"description": "Filtrar por ID do cliente"
+								}
+							]
+						},
+						"description": "Lista endereços com filtros opcionais e paginação"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Endereço por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/enderecos/:id",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["enderecos", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID do endereço"
+								}
+							]
+						},
+						"description": "Busca um endereço específico pelo ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Endereço",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rua\": \"Rua das Flores Atualizada\",\n    \"numero\": 456,\n    \"complemento\": \"Apto 202\",\n    \"bairro\": \"Centro\",\n    \"cidade\": \"São Paulo\",\n    \"estado\": \"SP\",\n    \"cep\": \"01234-567\",\n    \"clienteId\": 1\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/enderecos/:id",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["enderecos", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID do endereço"
+								}
+							]
+						},
+						"description": "Atualiza os dados de um endereço existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Endereço",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/enderecos/:id",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["enderecos", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID do endereço"
+								}
+							]
+						},
+						"description": "Remove um endereço pelo ID"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
